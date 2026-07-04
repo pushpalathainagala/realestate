@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Header from './components/Header.jsx'
+import Footer from './components/Footer.jsx'
 
 function getPath() {
   return window.location.pathname || '/'
@@ -96,6 +97,7 @@ export default function AppView({ routes }) {
       <main>
         <Page navigate={navigate} />
       </main>
+      <Footer navigate={navigate} />
     </div>
   )
 }

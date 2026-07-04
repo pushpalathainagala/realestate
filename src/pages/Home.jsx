@@ -236,18 +236,59 @@ export default function Home({ navigate }) {
         }
 
         @media (max-width: 900px) {
+          .home-hero {
+            min-height: auto;
+            padding: 54px 0 32px;
+          }
+
           .hero-person {
             display: none;
           }
 
-          .hero-content h1 {
-            font-size: 36px;
+          .hero-content {
+            width: min(100% - 32px, 620px);
+            padding-top: 0;
           }
 
-          .search-tabs,
+          .hero-content h1 {
+            font-size: 36px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .hero-content p {
+            font-size: 21px;
+            line-height: 1.3;
+            max-width: 540px;
+            margin: 0 auto;
+          }
+
+          .search-box {
+            width: 100%;
+            margin-top: 42px;
+          }
+
           .insight-grid,
           .sell-banner {
             grid-template-columns: 1fr;
+          }
+
+          .search-tabs {
+            grid-template-columns: 1fr;
+            padding: 8px 0;
+          }
+
+          .search-tab {
+            min-height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+          }
+
+          .search-tab.active {
+            text-underline-offset: 7px;
           }
 
           .search-row {
@@ -258,8 +299,78 @@ export default function Home({ navigate }) {
             padding: 22px;
           }
 
+          .search-input {
+            min-width: 0;
+            flex: 1 1 calc(100% - 48px);
+            font-size: 20px;
+          }
+
+          .search-row .primary-btn {
+            width: 120px;
+            margin-left: 36px;
+          }
+
           .localities {
             flex-wrap: wrap;
+            margin-top: 28px;
+            font-size: 18px;
+          }
+
+          .chip {
+            font-size: 16px;
+            padding: 10px 14px;
+          }
+        }
+
+        @media (max-width: 430px) {
+          .home-hero {
+            padding-top: 52px;
+          }
+
+          .hero-content {
+            width: min(100% - 36px, 360px);
+          }
+
+          .hero-content h1 {
+            font-size: 29px;
+            line-height: 1.2;
+          }
+
+          .hero-content p {
+            font-size: 19px;
+          }
+
+          .search-box {
+            margin-top: 36px;
+            border-radius: 9px;
+          }
+
+          .search-tabs {
+            min-height: 118px;
+          }
+
+          .search-row {
+            padding: 18px 20px 14px;
+            align-items: center;
+          }
+
+          .search-icon {
+            margin-right: 8px;
+          }
+
+          .search-input {
+            font-size: 18px;
+          }
+
+          .search-row .primary-btn {
+            width: 120px;
+            margin-left: 34px;
+            padding: 14px 22px;
+          }
+
+          .localities,
+          .owner-strip {
+            display: none;
           }
         }
       `}</style>

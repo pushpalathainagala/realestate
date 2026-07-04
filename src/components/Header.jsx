@@ -38,6 +38,7 @@ const menu = [
 export default function Header({ currentPath, navigate }) {
   const [scrolled, setScrolled] = useState(false)
   const [city, setCity] = useState('Guntakal')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 34)
@@ -48,6 +49,7 @@ export default function Header({ currentPath, navigate }) {
 
   const go = (event, path) => {
     event.preventDefault()
+    setMobileMenuOpen(false)
     navigate(path)
   }
 
@@ -344,6 +346,37 @@ export default function Header({ currentPath, navigate }) {
           background: #2f2f35;
         }
 
+        .mobile-menu-button {
+          display: none;
+          width: 42px;
+          height: 42px;
+          border: 2px solid #ffdd00;
+          border-radius: 8px;
+          background: rgba(17, 10, 47, 0.34);
+          color: #ffffff;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          padding: 0;
+        }
+
+        .mobile-menu-button .menu-lines {
+          order: initial;
+          width: 24px;
+          height: 18px;
+        }
+
+        .mobile-menu-button .menu-lines span {
+          background: #ffffff;
+          height: 3px;
+          border-radius: 999px;
+        }
+
+        .mobile-backdrop,
+        .mobile-drawer {
+          display: none;
+        }
+
         .site-header--scrolled .header-logo {
           min-width: 224px;
         }
@@ -441,6 +474,15 @@ export default function Header({ currentPath, navigate }) {
         }
 
         @media (max-width: 920px) {
+          .site-header,
+          .site-header--scrolled {
+            position: sticky;
+            height: 86px;
+            padding: 0 16px;
+            border-radius: 0;
+            box-shadow: none;
+          }
+
           .header-nav {
             display: none;
           }
@@ -459,11 +501,169 @@ export default function Header({ currentPath, navigate }) {
           }
 
           .header-actions {
-            gap: 12px;
+            gap: 10px;
+          }
+
+          .login-shell {
+            display: none;
+          }
+
+          .mobile-menu-button {
+            display: inline-flex;
           }
 
           .plain-link.mobile-hide {
             display: none;
+          }
+
+          .mobile-backdrop {
+            display: block;
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            background: rgba(13, 8, 35, 0.68);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+          }
+
+          .mobile-drawer {
+            display: flex;
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 100;
+            width: min(78vw, 310px);
+            min-height: 100vh;
+            background: #2b087b;
+            color: #ffffff;
+            border-left: 2px solid #ffdd00;
+            box-shadow: -22px 0 50px rgba(10, 4, 34, 0.38);
+            transform: translateX(100%);
+            transition: transform 0.24s ease;
+            flex-direction: column;
+          }
+
+          .mobile-backdrop.is-open {
+            opacity: 1;
+            pointer-events: auto;
+          }
+
+          .mobile-drawer.is-open {
+            transform: translateX(0);
+          }
+
+          .mobile-drawer-top {
+            min-height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 14px 12px 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+          }
+
+          .mobile-drawer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            text-decoration: none;
+            min-width: 0;
+            font-weight: 900;
+          }
+
+          .mobile-drawer-logo .logo-mark {
+            flex: 0 0 30px;
+          }
+
+          .mobile-drawer-logo .logo-main {
+            font-size: 17px;
+            white-space: nowrap;
+          }
+
+          .mobile-drawer-logo .logo-dot {
+            font-size: 11px;
+            white-space: nowrap;
+          }
+
+          .mobile-close {
+            width: 34px;
+            height: 34px;
+            border: 2px solid #ffdd00;
+            border-radius: 8px;
+            background: transparent;
+            color: #ffffff;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+          }
+
+          .mobile-menu-list {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0 22px;
+          }
+
+          .mobile-menu-link {
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 0 20px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 850;
+            text-transform: uppercase;
+            letter-spacing: 0;
+          }
+
+          .mobile-menu-link.active {
+            background: rgba(255, 255, 255, 0.09);
+          }
+
+          .mobile-menu-link.mobile-cta {
+            margin: 12px 14px 0;
+            min-height: 46px;
+            justify-content: center;
+            background: #ff4b12;
+            border-radius: 8px;
+          }
+
+          .mobile-drawer-footer {
+            margin-top: auto;
+            padding: 18px 20px 22px;
+            display: grid;
+            gap: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.72);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+          }
+        }
+
+        @media (max-width: 430px) {
+          .site-header,
+          .site-header--scrolled {
+            height: 86px;
+            padding: 0 14px;
+          }
+
+          .logo-mark {
+            width: 28px;
+            height: 28px;
+          }
+
+          .logo-main {
+            font-size: 23px;
+          }
+
+          .logo-dot {
+            font-size: 12px;
+          }
+
+          .mobile-menu-button {
+            width: 38px;
+            height: 38px;
           }
         }
       `}</style>
@@ -538,7 +738,66 @@ export default function Header({ currentPath, navigate }) {
         <a className="login-shell" href="/login" onClick={(event) => go(event, '/login')}>
           Login <span className="menu-lines"><span /><span /><span /></span>
         </a>
+        <button
+          className="mobile-menu-button"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen(true)}
+        >
+          <span className="menu-lines" aria-hidden="true"><span /><span /><span /></span>
+        </button>
       </div>
+
+      <button
+        className={`mobile-backdrop ${mobileMenuOpen ? 'is-open' : ''}`}
+        type="button"
+        aria-label="Close menu"
+        onClick={() => setMobileMenuOpen(false)}
+      />
+      <aside className={`mobile-drawer ${mobileMenuOpen ? 'is-open' : ''}`} aria-label="Mobile menu">
+        <div className="mobile-drawer-top">
+          <a className="mobile-drawer-logo" href="/" onClick={(event) => go(event, '/')}>
+            <span className="logo-mark" />
+            <span className="logo-main">HOUSING</span>
+            <span className="logo-dot">.COM</span>
+          </a>
+          <button className="mobile-close" type="button" aria-label="Close menu" onClick={() => setMobileMenuOpen(false)}>
+            X
+          </button>
+        </div>
+        <nav className="mobile-menu-list" aria-label="Mobile navigation">
+          <a className={`mobile-menu-link ${currentPath === '/' ? 'active' : ''}`} href="/" onClick={(event) => go(event, '/')}>
+            Home
+          </a>
+          <a className="mobile-menu-link" href="/buyers" onClick={(event) => go(event, '/buyers')}>
+            {city}
+          </a>
+          {menu.map((item) => (
+            <a
+              className={`mobile-menu-link ${currentPath === item.path ? 'active' : ''}`}
+              href={item.path}
+              key={item.label}
+              onClick={(event) => go(event, item.path)}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a className="mobile-menu-link" href="/download-app" onClick={(event) => go(event, '/download-app')}>
+            Download App
+          </a>
+          <a className="mobile-menu-link mobile-cta" href="/post-property" onClick={(event) => go(event, '/post-property')}>
+            Post Property Free
+          </a>
+          <a className="mobile-menu-link" href="/login" onClick={(event) => go(event, '/login')}>
+            Login
+          </a>
+        </nav>
+        <div className="mobile-drawer-footer">
+          <span>Housing search for Guntakal</span>
+          <span>Buy, rent, commercial, PG/co-living, and plots</span>
+        </div>
+      </aside>
     </header>
   )
 }
